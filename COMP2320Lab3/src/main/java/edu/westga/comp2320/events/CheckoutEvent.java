@@ -3,13 +3,12 @@ package edu.westga.comp2320.events;
 import java.util.Random;
 
 import edu.westga.comp2320.manager.ResourceManager;
-import edu.westga.comp2320.resources.Borrowable;
 import edu.westga.comp2320.resources.Laptop;
 
 /**
- * Creates checkout events for the resource center simulation.
+ * The CheckoutEvent represents the event when a resource
+ * is checked out from the resource center.
  *
- * @author COMP2320
  */
 public class CheckoutEvent extends Event {
 
@@ -35,13 +34,13 @@ public class CheckoutEvent extends Event {
         if (resource == null) {
             System.out.println("*** resource not available at time " + this.getTime());
             return null;
-        } else {
-            System.out.println("Checkout of " + resource + " at time " + this.getTime());
-
-            Random rand = new Random();
-            int returnTime = this.getTime() + 20 + rand.nextInt(41);
-
-            return new ReturnEvent(returnTime, (Borrowable) resource);
         }
+
+        System.out.println("Checkout of " + resource + " at time " + this.getTime());
+
+        Random rand = new Random();
+        int returnTime = this.getTime() + 20 + rand.nextInt(41);
+
+        return new ReturnEvent(returnTime, resource);
     }
 }
