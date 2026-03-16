@@ -3,12 +3,16 @@ package edu.westga.comp2320.events;
 import java.util.Random;
 
 import edu.westga.comp2320.manager.ResourceManager;
-import edu.westga.comp2320.resources.Laptop;
+import edu.westga.comp2320.resources.Resource;
+
+import static edu.westga.comp2320.SimulationParameters.PROBABILITY_OF_LAPTOP;
+import static edu.westga.comp2320.SimulationParameters.PROBABILITY_OF_TABLET;
 
 /**
  * The CheckoutEvent represents the event when a resource
  * is checked out from the resource center.
  *
+ * @author COMP2320
  */
 public class CheckoutEvent extends Event {
 
@@ -29,7 +33,8 @@ public class CheckoutEvent extends Event {
 
     @Override
     public Event processEvent() {
-        Laptop resource = this.resourceManager.getResource();
+        String resourceType = this.generateRandomResourceType();
+        Resource resource = this.resourceManager.getResourceByType(resourceType);
 
         if (resource == null) {
             System.out.println("*** resource not available at time " + this.getTime());
@@ -42,5 +47,18 @@ public class CheckoutEvent extends Event {
         int returnTime = this.getTime() + 20 + rand.nextInt(41);
 
         return new ReturnEvent(returnTime, resource);
+    }
+
+    private String generateRandomResourceType() {
+        Random rand = new Random();
+        int randomNumber = rand.nextInt(100);
+
+        if (randomNumber < PROBABILITY_OF_LAPTOP) {
+            return "Laptop";
+        }
+        if (randomNumber < PROBABILITY_OF_LAPTOP + PROBABILITY_OF_TABLET) {
+            return "Tablet";
+        }
+        return "StudyRoom";
     }
 }
