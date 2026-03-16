@@ -5,6 +5,7 @@ import java.util.Random;
 import edu.westga.comp2320.manager.ResourceManager;
 import edu.westga.comp2320.resources.Resource;
 
+import static edu.westga.comp2320.SimulationParameters.MIN_CHECKOUT_DURATION;
 import static edu.westga.comp2320.SimulationParameters.PROBABILITY_OF_LAPTOP;
 import static edu.westga.comp2320.SimulationParameters.PROBABILITY_OF_TABLET;
 
@@ -41,10 +42,12 @@ public class CheckoutEvent extends Event {
             return null;
         }
 
+        resource.borrow();
         System.out.println("Checkout of " + resource + " at time " + this.getTime());
 
         Random rand = new Random();
-        int returnTime = this.getTime() + 20 + rand.nextInt(41);
+        int returnTime = this.getTime() + MIN_CHECKOUT_DURATION
+                + rand.nextInt(resource.getCheckoutDuration() - MIN_CHECKOUT_DURATION + 1);
 
         return new ReturnEvent(returnTime, resource);
     }

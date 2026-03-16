@@ -1,8 +1,9 @@
 package edu.westga.comp2320.resources;
 
+import static edu.westga.comp2320.SimulationParameters.TABLET_CHECKOUT_DURATION;
+
 /**
  * The Tablet class represents a tablet resource in the resource center.
- * Each tablet has a unique code.
  *
  * @author COMP2320
  */
@@ -29,4 +30,10 @@ public class Tablet extends Resource {
     public String getType() {
         return TYPE;
     }
+
+    @Override
+    public int getCheckoutDuration() {
+        return TABLET_CHECKOUT_DURATION;
+    }
 }
+

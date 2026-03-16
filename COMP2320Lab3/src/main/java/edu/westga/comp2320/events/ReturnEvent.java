@@ -27,6 +27,7 @@ public class ReturnEvent extends Event {
     @Override
     public Event processEvent() {
         System.out.println("Return of " + this.resource + " at time " + this.getTime());
+        this.resource.returnItem();
         return null;
     }
 }

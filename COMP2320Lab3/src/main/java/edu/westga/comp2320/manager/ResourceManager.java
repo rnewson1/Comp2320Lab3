@@ -71,7 +71,7 @@ public class ResourceManager {
      */
     public Resource getResourceByType(String resourceType) {
         for (Resource resource : this.inventory) {
-            if (resource.getType().equals(resourceType)) {
+            if (resource.getType().equals(resourceType) && resource.isAvailable()) {
                 return resource;
             }
         }
